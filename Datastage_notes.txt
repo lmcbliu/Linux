@@ -1,0 +1,54 @@
+convert the file content to uppercase
+tr "[a-z]" "[A-Z]"    <AKEPTM005low.txt > AKEPTM005upp.txt
+
+Find the duplicate in the file
+cut -d^A -f1-6 --output-delimiter=~ TRSKPID_I.dat | sort | uniq -c | sort -nr | head
+grep -o 'xxx' file | wc -l
+
+awk -F$'\x01' 'BEGIN{print  "File Name , Total Columns"}; {print   FILENAME,NF;exit}' TPTNRP_PNTR_CAP_DTL.dat >> test1.csv
+awk -F$'\x01' '{print   FILENAME,NF;exit}' TPTNRP_PNTR_CAP_DTL.dat >> test1.csv
+
+awk '{ for(i = 1; i <= NF; i++) { print $i; } }' foo.txt
+
+sort -t^A -k1,5 -u -T/disk/temp/datastage/COMPASS/TMPDIR  TCPRFL_PRNT_ASMT.bak.duplicates
+sed -i 's/./&-/14;s/./&-/12' ./TCD_TY_C.dat
+sort -t^A -T/disk/data/datastage/COMPASS/1/kerm/temp -k1,4 -u TVCORP_LTD_ADHC_CYR.dat > TVCORP_LTD_ADHC_CYR.dat.uniq
+
+#COMPASS_ParamSet.pmDM_LOD_DIR#
+
+#Maximum length 
+awk -F$'\x01' 'NR>1{for (i=1; i<=NF; i++) max[i]=(length($i)>max[i]?length($i):max[i])}
+           END {for (i=1; i<=NF; i++) printf "Coloumn%d: %d \n",i, max[i]}' TRSKPED_G.dat.May.23.2018
+
+compare two columns
+awk 'NR==FNR{a[$2,$3];next} ($2,$3) in a' file1 file2
+
+ls -l |tr -s ' ' | cut -d' ' -f9 |awk NF |
+
+for f in $(find /disk/data/datastage/COMPASS/1/kerm/load_files/OT -maxdepth 1 -type f | cut -d/ -f10 |awk NF); do awk -F$'\x01' '{print   FILENAME,",",NF;exit}' /disk/data/datastage/COMPASS/1/kerm/load_files/OT/${f}; done |cut -d/ -f10 
+
+
+awk '   BEGIN { while ((getline <"file2.txt") > 0) {REC[$1]=$0}}
+    {print REC[$1]}' <file1.txt
+
+awk 'FNR==NR {a[$2]; b[$3]; next} $2 in a && $3 in b' file1 file2 > output
+awk 'NR==FNR{a[$2,$3];next} ($2,$3) in a' file1 file2
+
+awk 'FNR==NR{a[$2]=$3;next}{print $0,a[$2]?a[$2]:"NA"}' file2 file1
+
+# Covert EDCDIC file to ASCII
+iconv -f ISO8859-1   -t "UTF-8" result.csv -o new_result.csv
+iconv -f EBCDICUS -t US-ASCII inputEBCDIC -o outputASCII
+dd if=CDAFILE_2017.BIN of=CDAFILE_2017.csv conv=ascii
+
+#break a new line every 20 characters
+sed -e "s/.\{20\}/&\n/g" < temp.txt
+sed -e "s/.\{3\}/&\n/g" < file.txt > new-file.txt
+sed -e "s/.\{3950\}/&\n/g" < CDAFILE_2017.csv > CDAFILE_2017.dilim
+
+# find and replace string every second line
+sed -i   "s/<OilAndGas>/<OilAndGases>/g" BCAA_2017_Part19_test.xml
+sed -i '0,/<\/OilAndGas>/!{0,/<\/OilAndGas>/s/<\/OilAndGas>/<\/OilAndGases>/}' BCAA_2017_Part19_test.xml
+sed -i '2~2 s/<\/OilAndGas>/<\/OilAndGases>/' BCAA_2017_Part19_test.xml
+awk '{for(i=1; i<=NF; i++) if($i=="</OilAndGas>") if(++count%2==0) $i="</OilAndGases>"}1' BCAA_2017_Part19_test.xml >  BCAA_2017_Part19_test1.xml
+
